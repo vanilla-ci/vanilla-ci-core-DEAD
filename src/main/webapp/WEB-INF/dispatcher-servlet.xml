@@ -30,9 +30,14 @@
 		  p:defaultDestination-ref="destination"/>
 
 	<!-- Register the listener for JMS messages on the "jobs" queue -->
-	<bean id="simpleMessageListener" class="com.vanillaci.core.consumer.SimpleMessageListener">
-		<jms:listener-container container-type="default" connection-factory="jmsConnectionFactory" acknowledge="auto">
-			<jms:listener destination="jobs" ref="simpleMessageListener" method="onMessage"/>
-		</jms:listener-container>
-	</bean>
+	<bean id="simpleMessageListener" class="com.vanillaci.core.consumer.SimpleMessageListener" />
+
+	<bean id="jmsProducerTemplate" class="org.springframework.jms.core.JmsTemplate"
+		  p:connectionFactory-ref="jmsConnectionFactory"/>
+
+	<jms:listener-container container-type="default"
+							connection-factory="jmsConnectionFactory"
+							acknowledge="auto">
+		<jms:listener destination="jobs" ref="simpleMessageListener" />
+	</jms:listener-container>
 </beans>
