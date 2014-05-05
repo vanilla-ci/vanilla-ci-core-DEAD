@@ -32,6 +32,11 @@
 		</dependency>
 
 		<!-- Others -->
+		<dependency>
+			<groupId>com.vanilla-ci</groupId>
+			<artifactId>script-bundle</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
