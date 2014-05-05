@@ -1,9 +1,8 @@
 package com.vanillaci.core.consumer;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.TextMessage;
+import com.vanillaci.core.controller.*;
+
+import javax.jms.*;
 
 
 /**
@@ -12,11 +11,12 @@ import javax.jms.TextMessage;
 public class SimpleMessageListener implements MessageListener {
 	@Override
 	public void onMessage(Message message) {
-		TextMessage msg = (TextMessage) message;
 		try {
-			String text = msg.getText();
-			int messageCount = msg.getIntProperty("messageCount");
-			System.out.println("processing message #" + messageCount + ": " + text);
+			ObjectMessage msg = (ObjectMessage) message;
+			TestObject object = (TestObject) msg.getObject();
+
+			System.out.println("Processed " + object);
+
 		} catch (JMSException e) {
 			throw new RuntimeException(e);
 		}
