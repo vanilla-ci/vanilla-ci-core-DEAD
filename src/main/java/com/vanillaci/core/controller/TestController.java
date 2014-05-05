@@ -15,7 +15,7 @@ import javax.jms.*;
 @Controller
 public class TestController {
 	@Autowired
-	private JmsTemplate jmsTemplate;
+	private JmsTemplate producerTemplate;
 
 	@RequestMapping("/test")
 	public View viewTest(
@@ -27,7 +27,7 @@ public class TestController {
 
 		for(int i = 0; i < count; i++) {
 			int currentCount = i;
-			jmsTemplate.send(session -> getMessage(session, testObject.getName(), currentCount));
+			producerTemplate.send(session -> getMessage(session, testObject.getName(), currentCount));
 		}
 
 		return new JsonView<>(testObject);
