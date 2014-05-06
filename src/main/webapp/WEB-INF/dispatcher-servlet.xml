@@ -10,6 +10,7 @@
 
 	<!-- set up all the controllers -->
 	<context:component-scan base-package="com.vanillaci.core.controller"/>
+	<context:component-scan base-package="com.vanillaci.core.service"/>
 
 	<!-- A connection to ActiveMQ -->
 	<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory" p:brokerURL="tcp://localhost:61616"/>
@@ -40,4 +41,10 @@
 							acknowledge="auto">
 		<jms:listener destination="jobs" ref="simpleMessageListener" />
 	</jms:listener-container>
+
+	<!-- Enable file uploads -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 1 gigabyte upload sizes -->
+		<property name="maxUploadSize" value="1073741824"/>
+	</bean>
 </beans>

@@ -1,7 +1,7 @@
 package com.vanillaci.core.controller;
 
 import com.vanillaci.core.json.*;
-import com.vanillaci.util.*;
+import com.vanillaci.core.model.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.jms.core.*;
 import org.springframework.stereotype.*;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import javax.jms.*;
-import java.io.*;
 
 /**
  * @author Joel Johnson

@@ -12,6 +12,10 @@ import java.util.*;
 public class JsonView<T> implements View {
 	private final T serializable;
 
+	public static JsonView<Success> success() {
+		return new JsonView<>(new Success());
+	}
+
 	public JsonView(T serializable) {
 		this.serializable = serializable;
 	}
@@ -24,5 +28,13 @@ public class JsonView<T> implements View {
 	@Override
 	public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		JsonUtil.serialize(serializable, response.getOutputStream());
+	}
+}
+
+class Success {
+	boolean success = true;
+
+	public boolean isSuccess() {
+		return success;
 	}
 }

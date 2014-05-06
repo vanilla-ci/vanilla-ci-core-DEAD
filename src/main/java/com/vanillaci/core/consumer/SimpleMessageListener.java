@@ -1,6 +1,6 @@
 package com.vanillaci.core.consumer;
 
-import com.vanillaci.core.controller.*;
+import com.vanillaci.core.model.*;
 
 import javax.jms.*;
 
