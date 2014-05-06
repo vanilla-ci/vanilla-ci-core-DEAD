@@ -1,4 +1,4 @@
-package com.vanillaci.core.controller;
+package com.vanillaci.core.model;
 
 import java.io.*;
 
