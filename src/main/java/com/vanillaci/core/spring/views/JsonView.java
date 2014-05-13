@@ -1,4 +1,4 @@
-package com.vanillaci.core.json;
+package com.vanillaci.core.spring.views;
 
 import com.vanillaci.util.*;
 import org.springframework.web.servlet.*;

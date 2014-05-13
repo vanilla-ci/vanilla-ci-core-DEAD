@@ -1,7 +1,7 @@
 package com.vanillaci.core.controller;
 
-import com.vanillaci.core.json.*;
 import com.vanillaci.core.model.*;
+import com.vanillaci.core.spring.views.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.jms.core.*;
 import org.springframework.stereotype.*;
