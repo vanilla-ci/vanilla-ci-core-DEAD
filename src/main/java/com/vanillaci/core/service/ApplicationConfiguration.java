@@ -23,8 +23,8 @@ public class ApplicationConfiguration {
 
 	@NotNull
 	@SuppressWarnings("ResultOfMethodCallIgnored")
-	public File getPluginDirectory() {
-		File result = new File(getApplicationRoot(), "plugins");
+	public File getScriptDirectory() {
+		File result = new File(getApplicationRoot(), "scripts");
 		result.mkdirs();
 		return result;
 	}
@@ -32,7 +32,7 @@ public class ApplicationConfiguration {
 	@NotNull
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public File getArchivesDirectory() {
-		File result = new File(getPluginDirectory(), "archives");
+		File result = new File(getScriptDirectory(), "archives");
 		result.mkdirs();
 		return result;
 	}

@@ -21,16 +21,17 @@
 		  p:sessionCacheSize="10"/>
 
 	<!-- A destination in ActiveMQ -->
-	<bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="jobs"/>
+	<bean id="workQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="work"/>
 	</bean>
 
 	<!-- A JmsTemplate instance that uses the cached connection and destination -->
 	<bean id="producerTemplate" class="org.springframework.jms.core.JmsTemplate"
 		  p:connectionFactory-ref="cachedConnectionFactory"
-		  p:defaultDestination-ref="destination"/>
+		  p:defaultDestination-ref="workQueue"
+	/>
 
-	<!-- Register the listener for JMS messages on the "jobs" queue -->
+	<!-- Register the listener for JMS messages on the "work" queue -->
 	<bean id="simpleMessageListener" class="com.vanillaci.core.consumer.SimpleMessageListener" />
 
 	<bean id="jmsProducerTemplate" class="org.springframework.jms.core.JmsTemplate"
@@ -39,12 +40,12 @@
 	<jms:listener-container container-type="default"
 							connection-factory="jmsConnectionFactory"
 							acknowledge="auto">
-		<jms:listener destination="jobs" ref="simpleMessageListener" />
+		<jms:listener destination="work" ref="simpleMessageListener" />
 	</jms:listener-container>
 
 	<!-- Enable file uploads -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 1 gigabyte upload sizes -->
+		<!-- 1 gigabyte upload sizes TODO: sane value -->
 		<property name="maxUploadSize" value="1073741824"/>
 	</bean>
 </beans>

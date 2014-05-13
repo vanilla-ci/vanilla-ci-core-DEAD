@@ -11,7 +11,7 @@
 	<title></title>
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/plugin/upload" method="post" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath}/script/upload" method="post" enctype="multipart/form-data">
 		<label>
 			Name: <input type="text" name="name"/>
 		</label>
