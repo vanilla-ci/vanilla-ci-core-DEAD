@@ -4,15 +4,13 @@ import com.vanillaci.core.exceptions.*;
 import com.vanillaci.scriptbundles.*;
 import net.lingala.zip4j.core.*;
 import net.lingala.zip4j.exception.*;
+import net.lingala.zip4j.model.*;
 import org.apache.commons.io.*;
-import org.apache.commons.lang.exception.*;
+import org.jetbrains.annotations.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.logging.*;
 
 /**
  * @author Joel Johnson
@@ -25,11 +23,30 @@ public class ScriptService {
 	@Autowired
 	private ScriptRepository scriptRepository;
 
-	public Script getScript(String name, String version) {
+	@Nullable
+	public Script getScript(@NotNull String name, @NotNull String version) {
 		return scriptRepository.get(name, version);
 	}
 
-	public void installScriptFromZip(String name, File newScriptZip, boolean overwrite) throws IOException, ZipException {
+	@NotNull
+	public File getCompressedScript(@NotNull Script script) throws ZipException {
+		File archivesDirectory = applicationConfiguration.getArchivesDirectory();
+		File compressedScript = new File(archivesDirectory, script.getManifest().getName() + "_" + script.getManifest().getVersion() + ".zip");
+
+		if(!compressedScript.exists()) {
+			ZipFile zipFile = new ZipFile(compressedScript);
+			ZipParameters parameters = new ZipParameters();
+			parameters.setIncludeRootFolder(false);
+			parameters.setReadHiddenFiles(true);
+
+			zipFile.addFolder(script.getBundleDirectory(), parameters);
+		}
+
+		assert compressedScript.exists() : "compressed zip should have been created if it didn't exist already.";
+		return compressedScript;
+	}
+
+	public void installScriptFromZip(@NotNull String name, @NotNull File newScriptZip, boolean overwrite) throws IOException, ZipException {
 		File scriptDirectory = applicationConfiguration.getScriptDirectory();
 
 		File explodedScriptDirectory = new File(scriptDirectory, name);

@@ -1,8 +1,9 @@
 package com.vanillaci.core.controller;
 
 import com.vanillaci.core.exceptions.*;
-import com.vanillaci.core.json.*;
 import com.vanillaci.core.service.*;
+import com.vanillaci.core.spring.views.*;
+import com.vanillaci.scriptbundles.*;
 import net.lingala.zip4j.exception.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -24,13 +25,19 @@ public class ScriptController {
 	@Autowired
 	private ApplicationConfiguration applicationConfiguration;
 
-	@RequestMapping("/script")
+	@RequestMapping("/script/download")
 	public View downloadScript(
 		@RequestParam(value="name") String name,
 		@RequestParam(value="version") String version
-	) {
-		// todo: return the script data
-		return JsonView.success();
+	) throws IOException, ZipException {
+		Script script = scriptService.getScript(name, version);
+		if(script == null) {
+			throw new FileNotFoundException(name + " " + version);
+		}
+
+		File compressedScript = scriptService.getCompressedScript(script);
+		FileInputStream fileInputStream = new FileInputStream(compressedScript);
+		return new StreamView("application/zip", fileInputStream);
 	}
 
 	@RequestMapping(value="/script/upload", method=RequestMethod.POST)
