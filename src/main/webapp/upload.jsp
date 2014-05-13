@@ -13,7 +13,7 @@
 <body>
 	<form action="${pageContext.request.contextPath}/script/upload" method="post" enctype="multipart/form-data">
 		<label>
-			Name: <input type="text" name="name"/>
+			Name: <input type="text" name="overwrite" value="false"/>
 		</label>
 		<br/>
 		<input type="file" name="file" />
