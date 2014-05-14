@@ -1,0 +1,44 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'war'
+
+group = 'com.vanilla-ci'
+
+version = '1.0'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+configurations {
+  provided  
+}
+
+sourceSets {
+  main {
+    compileClasspath += configurations.provided  
+  }  
+}
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+  maven { url 'http://repository.codehaus.org/org/codehaus' }
+}
+
+dependencies {
+  provided 'javax.servlet:javax.servlet-api:3.0.1'
+  provided 'javax.servlet:jstl:1.2'
+
+  compile 'org.springframework.integration:spring-integration-core:4.0.0.RELEASE'
+  compile 'org.springframework:spring-webmvc:4.0.3.RELEASE'
+  compile 'org.springframework:spring-jms:4.0.3.RELEASE'
+  compile 'org.apache.activemq:activemq-client:5.9.1'
+  compile 'com.vanilla-ci:script-bundle:1.0-SNAPSHOT' 
+  compile 'org.apache.commons:commons-compress:1.5'
+  compile 'commons-fileupload:commons-fileupload:1.2.1'
+  compile 'commons-io:commons-io:2.2'
+  compile 'net.lingala.zip4j:zip4j:1.2.5'
+
+  compile 'org.jetbrains:annotations:13.0' 
+}
